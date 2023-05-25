@@ -1,10 +1,7 @@
-import { useState } from "react";
 import "./App.css";
 import { FaTwitter, FaGithub } from "react-icons/fa";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <>
       <div>
