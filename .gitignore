@@ -25,4 +25,4 @@ dist-ssr
 
 
 # environment files
-env.toml
+env.json
