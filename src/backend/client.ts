@@ -1,4 +1,7 @@
 import { createClient } from "@supabase/supabase-js";
+
+// if you're wondering why we're using env.json instead of .env, it's because I'm a moron and couldn't figure out how to get .env to work with Vite
+// if you know how to fix this, feel free to do so
 import env from "../../env.json";
 
 console.log(env);
