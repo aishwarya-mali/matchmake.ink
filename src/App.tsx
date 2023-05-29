@@ -1,27 +1,40 @@
 import "./App.css";
+import "./index.css";
 import { useState, useEffect } from "react";
-import { databaseClient } from "./backend/client";
-import Auth from "./pages/Auth";
-import Account from "./pages/Account";
 import { Session } from "@supabase/supabase-js";
+import { Auth } from "@supabase/auth-ui-react";
+import { ThemeSupa } from "@supabase/auth-ui-shared";
+import { databaseClient } from "./backend/client";
 
-function App() {
+const supabase = databaseClient;
+
+export default function App() {
   const [session, setSession] = useState<Session | null>(null);
 
   useEffect(() => {
-    databaseClient.auth
-      .getSession()
-      .then(({ data: { session } }) => setSession(session));
-    databaseClient.auth.onAuthStateChange((_event, session) =>
-      setSession(session)
-    );
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+    });
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
+
+    return () => subscription.unsubscribe();
   }, []);
 
-  return (
-    <div className="container">
-      {!session ? <Auth /> : <Account session={session} />}
-    </div>
-  );
+  if (!session) {
+    return (
+      <Auth
+        supabaseClient={supabase}
+        onlyThirdPartyProviders={true}
+        providers={["discord"]}
+        appearance={{ theme: ThemeSupa }}
+      />
+    );
+  } else {
+    return <div>Logged in!</div>;
+  }
 }
-
-export default App;
