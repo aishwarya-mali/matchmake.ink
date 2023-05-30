@@ -1,40 +1,30 @@
 import "./App.css";
 import "./index.css";
-import { useState, useEffect } from "react";
-import { Session } from "@supabase/supabase-js";
-import { Auth } from "@supabase/auth-ui-react";
-import { ThemeSupa } from "@supabase/auth-ui-shared";
-import { databaseClient } from "./backend/client";
 
-const supabase = databaseClient;
+import { useEffect } from "react";
+import { useSession } from "./backend/session";
+import { BrowserRouter, Routes, Route, redirect } from "react-router-dom";
+
+import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
 
 export default function App() {
-  const [session, setSession] = useState<Session | null>(null);
+  const session = useSession();
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-    });
+    if (!session) {
+      redirect("/login");
+    }
+  }, [session]);
 
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-    });
-
-    return () => subscription.unsubscribe();
-  }, []);
-
-  if (!session) {
-    return (
-      <Auth
-        supabaseClient={supabase}
-        onlyThirdPartyProviders={true}
-        providers={["discord"]}
-        appearance={{ theme: ThemeSupa }}
-      />
-    );
-  } else {
-    return <div>Logged in!</div>;
-  }
+  return (
+    <div className="App">
+      <BrowserRouter>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Dashboard />} />
+        </Routes>
+      </BrowserRouter>
+    </div>
+  );
 }

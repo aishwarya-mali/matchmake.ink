@@ -4,8 +4,6 @@ import { createClient } from "@supabase/supabase-js";
 // if you know how to fix this, feel free to do so
 import env from "../../env.json";
 
-console.log(env);
-
 const url = env.SUPABASE_URL;
 const anonKey = env.SUPABASE_ANON_KEY;
 
