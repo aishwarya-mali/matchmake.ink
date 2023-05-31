@@ -1,33 +1,29 @@
 import "./App.css";
-import { FaTwitter, FaGithub, FaDiscord } from "react-icons/fa";
+import "./index.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-function App() {
+import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
+
+export default function App() {
+  // flow should look like this:
+  // is the user logged in>
+  //   if yes:
+  //     is this the first time they've logged in?
+  //       if yes:
+  //         create a new user in the database
+  //       show user dashboard
+  //   if no:
+  //     show login page
+
   return (
-    <>
-      <div>
-        <h1>Coming soon...</h1>
-        <h3>
-          We're hard at work getting the basics of this site up. For now reach
-          out to use on:
-        </h3>
-        <div className="socials">
-          <a href="https://twitter.com/splat_matchmake" target="_blank">
-            <FaTwitter size={150} />
-          </a>
-          <a href="https://github.com/matchmake-ink" target="_blank">
-            <FaGithub size={150} />
-          </a>
-          <a href="https://discord.gg/MtnRydHhAt" target="_blank">
-            <FaDiscord size={150} />
-          </a>
-        </div>
-        <p>
-          If you're an artist, developer, or just want to help out, feel free to
-          reach out to FireSquid#8882 on discord.
-        </p>
-      </div>
-    </>
+    <div className="App">
+      <BrowserRouter>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Dashboard />} />
+        </Routes>
+      </BrowserRouter>
+    </div>
   );
 }
-
-export default App;
