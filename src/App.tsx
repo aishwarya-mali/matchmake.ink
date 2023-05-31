@@ -1,5 +1,5 @@
 import "./App.css";
-import { FaTwitter, FaGithub } from "react-icons/fa";
+import { FaTwitter, FaGithub, FaDiscord } from "react-icons/fa";
 
 function App() {
   return (
@@ -16,6 +16,9 @@ function App() {
           </a>
           <a href="https://github.com/matchmake-ink" target="_blank">
             <FaGithub size={150} />
+          </a>
+          <a href="https://discord.gg/MtnRydHhAt" target="_blank">
+            <FaDiscord size={150} />
           </a>
         </div>
         <p>
