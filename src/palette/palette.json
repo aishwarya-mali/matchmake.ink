@@ -1,0 +1,26 @@
+{
+  "bgNormal": "#313131",
+  "bgLight": "#989898",
+  "bgDark": "#191919",
+
+  "fgLight": "#ffffff",
+  "fgNormal": "#ebebeb",
+  "fgDark": "#bcbcbc",
+  "accents": [
+    {
+      "primary": "#1a1aae",
+      "secondary": "#e38d24",
+      "neutral": "#ebee3d"
+    },
+    {
+      "primary": "#c12d74",
+      "secondary": "#c43a6e",
+      "neutral": "#3a28c4"
+    },
+    {
+      "primary": "#ceb121",
+      "secondary": "#3a0ccd",
+      "neutral": "#b62ea7"
+    }
+  ]
+}
