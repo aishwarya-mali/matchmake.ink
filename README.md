@@ -32,7 +32,11 @@ We're using Vite, React, and Typescript deployed to netlify on the frontend, and
 1. Don't hardcode any text content so that it's easier to add translation later.
 2. Don't hardcode any colors.
 3. If it's important enough to be global, it should be wrapped in its own module
-4. Read [The Pragmatic Programmer](https://pragprog.com/titles/tpp20/the-pragmatic-programmer-20th-anniversary-edition/)
+4. Keep each issue to its own branch and make PR's to main
+5. Fetch from main often to avoid conflicts
+6. Read [The Pragmatic Programmer](https://pragprog.com/titles/tpp20/the-pragmatic-programmer-20th-anniversary-edition/)
+
+The main branch is our primary development branch, with PR's made to production being deployed to the website.
 
 ### How to join the github org
 Once you've made an accepted PR, feel free to DM me on discord (FireSquid#8882)
@@ -42,5 +46,4 @@ Once you've made an accepted PR, feel free to DM me on discord (FireSquid#8882)
 3. Run `npm install`
 4. Create your env.json file. See `src/backend/client.ts` for info on what this should contain
 5. Run `npm run dev`
-
-That's it! 
+6. Choose an issue to start working on. If you're new, look for stuff marked with `good-first-issue`
