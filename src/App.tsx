@@ -1,21 +1,20 @@
 import "./App.css";
 import "./index.css";
-
-import { useEffect } from "react";
-import { useSession } from "./backend/session";
-import { BrowserRouter, Routes, Route, redirect } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 
 export default function App() {
-  const session = useSession();
-
-  useEffect(() => {
-    if (!session) {
-      redirect("/login");
-    }
-  }, [session]);
+  // flow should look like this:
+  // is the user logged in>
+  //   if yes:
+  //     is this the first time they've logged in?
+  //       if yes:
+  //         create a new user in the database
+  //       show user dashboard
+  //   if no:
+  //     show login page
 
   return (
     <div className="App">
