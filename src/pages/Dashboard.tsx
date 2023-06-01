@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 import { databaseClient } from "../backend/client";
-import { Session } from "@supabase/supabase-js";
+import { useSession } from "../backend/session";
 import axios from "axios";
+import { Session } from "@supabase/supabase-js";
 
-export interface DashboardProps {
-  session: Session;
-}
-export default function Dashboard({ session }: DashboardProps) {
+export default function Dashboard() {
+  const session = useSession();
   const [loading, setLoading] = useState<boolean>(true);
   const [friendCode, setFriendCode] = useState<string | null>(null);
   const [twitter, setTwitter] = useState<string | null>(null);
@@ -16,7 +15,7 @@ export default function Dashboard({ session }: DashboardProps) {
     async function getProfile() {
       setLoading(true);
 
-      const { user } = session;
+      const { user } = session as Session;
       const { data, error } = await databaseClient
         .from("profiles")
         .select(`friend_code`)
@@ -39,24 +38,32 @@ export default function Dashboard({ session }: DashboardProps) {
   async function updateDiscordUserData(
     provider_token: string | null | undefined
   ): Promise<string | any> {
-    if (
-      session.provider_token === null ||
-      session.provider_token === undefined
-    ) {
-      return Promise.reject("No provider token");
+    if (session) {
+      if (
+        session.provider_token === null ||
+        session.provider_token === undefined
+      ) {
+        return Promise.reject("No provider token");
+      }
+
+      const { data } = await axios.get("https://discordapp.com/api/users/@me", {
+        headers: { Authorization: `Bearer ${provider_token}` },
+      });
+
+      return Promise.resolve(data);
     }
-
-    const { data } = await axios.get("https://discordapp.com/api/users/@me", {
-      headers: { Authorization: `Bearer ${provider_token}` },
-    });
-
-    return Promise.resolve(data);
+    return Promise.reject("session is null");
   }
 
   async function updateProfile(event: React.FormEvent) {
     event.preventDefault();
 
     setLoading(true);
+
+    if (session === null) {
+      throw new Error("Session is null");
+    }
+
     const { user } = session;
     const discordData = await updateDiscordUserData(session.provider_token);
 
