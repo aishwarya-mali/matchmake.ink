@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { databaseClient } from "../backend/client";
-import { Session, User } from "@supabase/supabase-js";
+import { Session } from "@supabase/supabase-js";
 import axios from "axios";
 
 export interface DashboardProps {
