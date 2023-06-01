@@ -35,9 +35,8 @@ export default function Dashboard({ session }: DashboardProps) {
 
   // this function updates the data on this user's discord tag and profile pictures. It's called once when the componenet is loaded
   async function updateDiscordUserData(
-    provider_token: string | null | undefined,
-    user: User
-  ): Promise<string | void> {
+    provider_token: string | null | undefined
+  ): Promise<any> {
     if (
       session.provider_token === null ||
       session.provider_token === undefined
@@ -48,19 +47,8 @@ export default function Dashboard({ session }: DashboardProps) {
     const { data } = await axios.get("https://discordapp.com/api/users/@me", {
       headers: { Authorization: `Bearer ${provider_token}` },
     });
-    const { id, username, discriminator, avatar, email } = data;
 
-    // at some point this should be refactored
-    databaseClient.from("profiles").upsert({
-      updated_at: new Date(),
-      id: user.id,
-      discord_id: id,
-      discord_tag: `${username}#${discriminator}`,
-      avatar_url: `https://cdn.discordapp.com/avatars/${id}/${avatar}.png`,
-      email: email,
-    });
-
-    return Promise.resolve();
+    return Promise.resolve(data);
   }
 
   async function updateProfile(event: React.FormEvent) {
@@ -68,10 +56,15 @@ export default function Dashboard({ session }: DashboardProps) {
 
     setLoading(true);
     const { user } = session;
+    const discordData = await updateDiscordUserData(session.provider_token);
 
     const updates = {
       id: user.id,
       friend_code: friendCode,
+      discord_id: discordData.id,
+      discord_tag: `${discordData.username}#${discordData.discriminator}`,
+      avatar_url: `https://cdn.discordapp.com/avatars/${discordData.id}/${discordData.avatar}.png`,
+      email: discordData.email,
       updated_at: new Date(),
     };
 
@@ -81,7 +74,7 @@ export default function Dashboard({ session }: DashboardProps) {
       alert(error.message);
     }
 
-    await updateDiscordUserData(session.provider_token, user);
+    await updateDiscordUserData(session.provider_token);
     setLoading(false);
   }
 
