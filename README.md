@@ -3,8 +3,8 @@ matchmake.ink is a website built to provide the best competitive experience for 
 
 # Roadmap (subject to change)
 ## v1.0.0 - September 30 2023
-- [ ] User account creation and login  
-	- [ ] Linking discord account  
+- [x] User account creation and login  
+	- [x] Linking discord account  
 - [ ] Team account creation
 	- [ ] One user designated team captain with admin perms
 	- [ ] Other users can be designated team moderators
