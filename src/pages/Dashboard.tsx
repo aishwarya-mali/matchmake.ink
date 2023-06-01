@@ -9,6 +9,8 @@ export interface DashboardProps {
 export default function Dashboard({ session }: DashboardProps) {
   const [loading, setLoading] = useState<boolean>(true);
   const [friendCode, setFriendCode] = useState<string | null>(null);
+  const [twitter, setTwitter] = useState<string | null>(null);
+  const [sendou, setSendou] = useState<string | null>(null);
 
   useEffect(() => {
     async function getProfile() {
@@ -36,7 +38,7 @@ export default function Dashboard({ session }: DashboardProps) {
   // this function updates the data on this user's discord tag and profile pictures. It's called once when the componenet is loaded
   async function updateDiscordUserData(
     provider_token: string | null | undefined
-  ): Promise<any> {
+  ): Promise<string | any> {
     if (
       session.provider_token === null ||
       session.provider_token === undefined
@@ -61,6 +63,8 @@ export default function Dashboard({ session }: DashboardProps) {
     const updates = {
       id: user.id,
       friend_code: friendCode,
+      sendou_page: sendou,
+      twitter_handle: twitter,
       discord_id: discordData.id,
       discord_tag: `${discordData.username}#${discordData.discriminator}`,
       avatar_url: `https://cdn.discordapp.com/avatars/${discordData.id}/${discordData.avatar}.png`,
@@ -81,13 +85,33 @@ export default function Dashboard({ session }: DashboardProps) {
   return (
     <form onSubmit={updateProfile} className="form-widget">
       <div>
-        <label htmlFor="username">Friend Code</label>
+        <label htmlFor="friendCode">Friend Code</label>
         <input
           id="friendCode"
           type="text"
           required
           value={friendCode || ""}
           onChange={(e) => setFriendCode(e.target.value)}
+        />
+      </div>
+      <div>
+        <label htmlFor="twitterHandle">Twitter handle</label>
+        <input
+          id="twitterHandle"
+          type="text"
+          required
+          value={twitter || ""}
+          onChange={(e) => setTwitter(e.target.value)}
+        />
+      </div>
+      <div>
+        <label htmlFor="sendouPage">sendou.ink page</label>
+        <input
+          id="sendouPage"
+          type="text"
+          required
+          value={sendou || ""}
+          onChange={(e) => setSendou(e.target.value)}
         />
       </div>
 
