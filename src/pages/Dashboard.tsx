@@ -1,33 +1,32 @@
 import { useEffect, useState } from "react";
 import { databaseClient } from "../backend/client";
-import { Session } from "@supabase/supabase-js";
+import { Session, User } from "@supabase/supabase-js";
+import axios from "axios";
 
 export interface DashboardProps {
   session: Session;
 }
 export default function Dashboard({ session }: DashboardProps) {
   const [loading, setLoading] = useState<boolean>(true);
-  const [username, setUsername] = useState<string | null>(null);
-  const [website, setWebsite] = useState<string | null>(null);
-  const [avatar_url, setAvatarUrl] = useState<string | null>(null);
+  const [friendCode, setFriendCode] = useState<string | null>(null);
+  const [twitter, setTwitter] = useState<string | null>(null);
+  const [sendou, setSendou] = useState<string | null>(null);
 
   useEffect(() => {
     async function getProfile() {
       setLoading(true);
-      const { user } = session;
 
+      const { user } = session;
       const { data, error } = await databaseClient
         .from("profiles")
-        .select(`username, website, avatar_url`)
+        .select(`friend_code`)
         .eq("id", user.id)
         .single();
 
       if (error) {
         console.warn(error);
       } else if (data) {
-        setUsername(data.username);
-        setWebsite(data.website);
-        setAvatarUrl(data.avatar_url);
+        setFriendCode(data.friend_code);
       }
 
       setLoading(false);
@@ -36,17 +35,40 @@ export default function Dashboard({ session }: DashboardProps) {
     getProfile();
   }, [session]);
 
+  // this function updates the data on this user's discord tag and profile pictures. It's called once when the componenet is loaded
+  async function updateDiscordUserData(
+    provider_token: string | null | undefined
+  ): Promise<string | any> {
+    if (
+      session.provider_token === null ||
+      session.provider_token === undefined
+    ) {
+      return Promise.reject("No provider token");
+    }
+
+    const { data } = await axios.get("https://discordapp.com/api/users/@me", {
+      headers: { Authorization: `Bearer ${provider_token}` },
+    });
+
+    return Promise.resolve(data);
+  }
+
   async function updateProfile(event: React.FormEvent) {
     event.preventDefault();
 
     setLoading(true);
     const { user } = session;
+    const discordData = await updateDiscordUserData(session.provider_token);
 
     const updates = {
       id: user.id,
-      username,
-      website,
-      avatar_url,
+      friend_code: friendCode,
+      sendou_page: sendou,
+      twitter_handle: twitter,
+      discord_id: discordData.id,
+      discord_tag: `${discordData.username}#${discordData.discriminator}`,
+      avatar_url: `https://cdn.discordapp.com/avatars/${discordData.id}/${discordData.avatar}.png`,
+      email: discordData.email,
       updated_at: new Date(),
     };
 
@@ -55,28 +77,41 @@ export default function Dashboard({ session }: DashboardProps) {
     if (error) {
       alert(error.message);
     }
+
+    await updateDiscordUserData(session.provider_token);
     setLoading(false);
   }
 
   return (
     <form onSubmit={updateProfile} className="form-widget">
       <div>
-        <label htmlFor="username">Name</label>
+        <label htmlFor="friendCode">Friend Code</label>
         <input
-          id="username"
+          id="friendCode"
           type="text"
           required
-          value={username || ""}
-          onChange={(e) => setUsername(e.target.value)}
+          value={friendCode || ""}
+          onChange={(e) => setFriendCode(e.target.value)}
         />
       </div>
       <div>
-        <label htmlFor="website">Website</label>
+        <label htmlFor="twitterHandle">Twitter handle</label>
         <input
-          id="website"
-          type="url"
-          value={website || ""}
-          onChange={(e) => setWebsite(e.target.value)}
+          id="twitterHandle"
+          type="text"
+          required
+          value={twitter || ""}
+          onChange={(e) => setTwitter(e.target.value)}
+        />
+      </div>
+      <div>
+        <label htmlFor="sendouPage">sendou.ink page</label>
+        <input
+          id="sendouPage"
+          type="text"
+          required
+          value={sendou || ""}
+          onChange={(e) => setSendou(e.target.value)}
         />
       </div>
 
