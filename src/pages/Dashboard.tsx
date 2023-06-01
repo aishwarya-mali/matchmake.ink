@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { databaseClient } from "../backend/client";
 import { Session } from "@supabase/supabase-js";
+import { REST, Routes } from "discord.js";
 
 export interface DashboardProps {
   session: Session;
@@ -14,7 +15,21 @@ export default function Dashboard({ session }: DashboardProps) {
   useEffect(() => {
     async function getProfile() {
       setLoading(true);
+
       const { user } = session;
+
+      if (
+        session.provider_token === null ||
+        session.provider_token === undefined
+      ) {
+        throw new Error(
+          "No provider token found. If this error is being thrown, something is very fucked"
+        );
+      }
+
+      const rest = new REST({ version: "10" }).setToken(
+        session.provider_token as string
+      );
 
       const { data, error } = await databaseClient
         .from("profiles")
