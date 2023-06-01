@@ -18,7 +18,7 @@ matchmake.ink is a website built to provide the best competitive experience for 
   - [ ] Matchmaking based on rating
 
 # Contributors
-All contributors are welcome! If you don't know code, but are a TO, artist, or just want to help, feel free to DM FireSquid#8882 on discord. For programmers, we use React with typescript for the frontend. Issues should be well documented, so work on whatever you wish. If you'd like to become more involved as a developer, dm FireSquid#8882 about joining the team.
+All contributors are welcome! If you don't know code, but are a TO, artist, or just want to help, feel free to DM FireSquid#8881 on discord. For programmers, we use React with typescript for the frontend. Issues should be well documented, so work on whatever you wish. If you'd like to become more involved as a developer, dm FireSquid#8881 about joining the team.
 
 ## TOs
 If you're a tournament organizer, you will at some point be able to submit results of your tournaments to matchmake.ink. Follow us on twitter and join our discord for more info!
