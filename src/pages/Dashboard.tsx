@@ -1,48 +1,30 @@
 import { useEffect, useState } from "react";
 import { databaseClient } from "../backend/client";
-import { Session } from "@supabase/supabase-js";
-import { REST, Routes } from "discord.js";
+import { Session, User } from "@supabase/supabase-js";
+import axios from "axios";
 
 export interface DashboardProps {
   session: Session;
 }
 export default function Dashboard({ session }: DashboardProps) {
   const [loading, setLoading] = useState<boolean>(true);
-  const [username, setUsername] = useState<string | null>(null);
-  const [website, setWebsite] = useState<string | null>(null);
-  const [avatar_url, setAvatarUrl] = useState<string | null>(null);
+  const [friendCode, setFriendCode] = useState<string | null>(null);
 
   useEffect(() => {
     async function getProfile() {
       setLoading(true);
 
       const { user } = session;
-
-      if (
-        session.provider_token === null ||
-        session.provider_token === undefined
-      ) {
-        throw new Error(
-          "No provider token found. If this error is being thrown, something is very fucked"
-        );
-      }
-
-      const rest = new REST({ version: "10" }).setToken(
-        session.provider_token as string
-      );
-
       const { data, error } = await databaseClient
         .from("profiles")
-        .select(`username, website, avatar_url`)
+        .select(`friend_code`)
         .eq("id", user.id)
         .single();
 
       if (error) {
         console.warn(error);
       } else if (data) {
-        setUsername(data.username);
-        setWebsite(data.website);
-        setAvatarUrl(data.avatar_url);
+        setFriendCode(data.friend_code);
       }
 
       setLoading(false);
@@ -50,6 +32,36 @@ export default function Dashboard({ session }: DashboardProps) {
 
     getProfile();
   }, [session]);
+
+  // this function updates the data on this user's discord tag and profile pictures. It's called once when the componenet is loaded
+  async function updateDiscordUserData(
+    provider_token: string | null | undefined,
+    user: User
+  ): Promise<string | void> {
+    if (
+      session.provider_token === null ||
+      session.provider_token === undefined
+    ) {
+      return Promise.reject("No provider token");
+    }
+
+    const { data } = await axios.get("https://discordapp.com/api/users/@me", {
+      headers: { Authorization: `Bearer ${provider_token}` },
+    });
+    const { id, username, discriminator, avatar, email } = data;
+
+    // at some point this should be refactored
+    databaseClient.from("profiles").upsert({
+      updated_at: new Date(),
+      id: user.id,
+      discord_id: id,
+      discord_tag: `${username}#${discriminator}`,
+      avatar_url: `https://cdn.discordapp.com/avatars/${id}/${avatar}.png`,
+      email: email,
+    });
+
+    return Promise.resolve();
+  }
 
   async function updateProfile(event: React.FormEvent) {
     event.preventDefault();
@@ -59,9 +71,7 @@ export default function Dashboard({ session }: DashboardProps) {
 
     const updates = {
       id: user.id,
-      username,
-      website,
-      avatar_url,
+      friend_code: friendCode,
       updated_at: new Date(),
     };
 
@@ -70,28 +80,21 @@ export default function Dashboard({ session }: DashboardProps) {
     if (error) {
       alert(error.message);
     }
+
+    await updateDiscordUserData(session.provider_token, user);
     setLoading(false);
   }
 
   return (
     <form onSubmit={updateProfile} className="form-widget">
       <div>
-        <label htmlFor="username">Name</label>
+        <label htmlFor="username">Friend Code</label>
         <input
-          id="username"
+          id="friendCode"
           type="text"
           required
-          value={username || ""}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-      </div>
-      <div>
-        <label htmlFor="website">Website</label>
-        <input
-          id="website"
-          type="url"
-          value={website || ""}
-          onChange={(e) => setWebsite(e.target.value)}
+          value={friendCode || ""}
+          onChange={(e) => setFriendCode(e.target.value)}
         />
       </div>
 
