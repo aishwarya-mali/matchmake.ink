@@ -1,3 +1,5 @@
+import { FaTwitter } from "react-icons/fa";
+
 export interface UserProfileProps {
   discordTag: string;
   profilePictureUrl: string;
@@ -17,16 +19,14 @@ export function UserProfile({
   sendouLink = "",
 }: UserProfileProps) {
   return (
-    <div>
-      <h1>{discordTag}</h1>
+    <div className="flex flex-col">
+      <img role="profile-picture" src={profilePictureUrl} />
+      <h1 className="font-bold text-3xl underline">{discordTag}</h1>
       <h2>{team}</h2>
       <p>{friendCode}</p>
-
-      <img role="profile-picture" src={profilePictureUrl} />
-
       <div>
         <a role="twitter-link" href={`https://twitter.com/${twitterHandle}`}>
-          Twitter
+          <FaTwitter />
         </a>
         <a role="sendou-link" href={`https://sendou.ink/u/${sendouLink}`}>
           Sendou.ink

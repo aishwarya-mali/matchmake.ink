@@ -3,6 +3,7 @@ import { databaseClient } from "../backend/client";
 import { useSession } from "../backend/session";
 import axios from "axios";
 import { Session } from "@supabase/supabase-js";
+import { UserProfile } from "../components/user-profile/UserProfile";
 
 export default function Dashboard() {
   const session = useSession();
@@ -90,57 +91,67 @@ export default function Dashboard() {
   }
 
   return (
-    <form onSubmit={updateProfile} className="form-widget">
-      <div>
-        <label htmlFor="friendCode">Friend Code</label>
-        <input
-          id="friendCode"
-          type="text"
-          required
-          value={friendCode || ""}
-          onChange={(e) => setFriendCode(e.target.value)}
-        />
-      </div>
-      <div>
-        <label htmlFor="twitterHandle">Twitter handle</label>
-        <input
-          id="twitterHandle"
-          type="text"
-          required
-          value={twitter || ""}
-          onChange={(e) => setTwitter(e.target.value)}
-        />
-      </div>
-      <div>
-        <label htmlFor="sendouPage">sendou.ink page</label>
-        <input
-          id="sendouPage"
-          type="text"
-          required
-          value={sendou || ""}
-          onChange={(e) => setSendou(e.target.value)}
-        />
-      </div>
+    <main>
+      <UserProfile
+        discordTag="discordTag#1234"
+        profilePictureUrl="https://cdn.discordapp.com/avatars/310562658640461824/7f82f1d2b851e0fea5eddc69fa6674c4.png"
+        friendCode="SW-1234-5678-9012"
+        team="Cephalogods"
+        sendouLink="fire"
+        twitterHandle="matchmake_ink"
+      />
+      <form onSubmit={updateProfile} className="form-widget">
+        <div>
+          <label htmlFor="friendCode">Friend Code</label>
+          <input
+            id="friendCode"
+            type="text"
+            required
+            value={friendCode || ""}
+            onChange={(e) => setFriendCode(e.target.value)}
+          />
+        </div>
+        <div>
+          <label htmlFor="twitterHandle">Twitter handle</label>
+          <input
+            id="twitterHandle"
+            type="text"
+            required
+            value={twitter || ""}
+            onChange={(e) => setTwitter(e.target.value)}
+          />
+        </div>
+        <div>
+          <label htmlFor="sendouPage">sendou.ink page</label>
+          <input
+            id="sendouPage"
+            type="text"
+            required
+            value={sendou || ""}
+            onChange={(e) => setSendou(e.target.value)}
+          />
+        </div>
 
-      <div>
-        <button
-          className="button block primary"
-          type="submit"
-          disabled={loading}
-        >
-          {loading ? "Loading ..." : "Update"}
-        </button>
-      </div>
+        <div>
+          <button
+            className="button block primary"
+            type="submit"
+            disabled={loading}
+          >
+            {loading ? "Loading ..." : "Update"}
+          </button>
+        </div>
 
-      <div>
-        <button
-          className="button block"
-          type="button"
-          onClick={() => databaseClient.auth.signOut()}
-        >
-          Sign Out
-        </button>
-      </div>
-    </form>
+        <div>
+          <button
+            className="button block"
+            type="button"
+            onClick={() => databaseClient.auth.signOut()}
+          >
+            Sign Out
+          </button>
+        </div>
+      </form>
+    </main>
   );
 }
