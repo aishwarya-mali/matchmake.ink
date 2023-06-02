@@ -1,16 +1,24 @@
-import { User } from "@supabase/supabase-js";
-
-interface UserProfileProps {
-  uuid: string;
-  user: User;
+export interface UserProfileProps {
+  discordTag: string;
+  profilePictureUrl: string;
+  friendCode?: string;
+  team: string;
+  twitterHandle?: string;
+  sendouLink?: string;
+  // note - the sendouLink variable only refers to the last
 }
 
-export default function UserProfile({ user, uuid }: UserProfileProps) {
-  const editable = uuid === user.id;
-
+export function UserProfile({
+  discordTag,
+  profilePictureUrl,
+  friendCode = "",
+  team = "Free Agent",
+  twitterHandle = "",
+  sendouLink = "",
+}: UserProfileProps) {
   return (
     <div>
-      <h1>User Profile {uuid}</h1>
+      <h1>User Profile {discordTag}</h1>
     </div>
   );
 }
