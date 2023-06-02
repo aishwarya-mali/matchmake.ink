@@ -6,7 +6,7 @@ export interface UserProfileProps {
   friendCode?: string;
   team: string;
   twitterHandle?: string;
-  sendouLink?: string;
+  sendouPage?: string;
   // note - the sendouLink variable only refers to the last
 }
 
@@ -16,7 +16,7 @@ export function UserProfile({
   friendCode = "",
   team = "Free Agent",
   twitterHandle = "",
-  sendouLink = "",
+  sendouPage = "",
 }: UserProfileProps) {
   return (
     <div className="flex flex-col">
@@ -25,10 +25,10 @@ export function UserProfile({
       <h2>{team}</h2>
       <p>{friendCode}</p>
       <div>
-        <a role="twitter-link" href={`https://twitter.com/${twitterHandle}`}>
+        <a role="twitter-handle" href={`https://twitter.com/${twitterHandle}`}>
           <FaTwitter />
         </a>
-        <a role="sendou-link" href={`https://sendou.ink/u/${sendouLink}`}>
+        <a role="sendou-page" href={`https://sendou.ink/u/${sendouPage}`}>
           Sendou.ink
         </a>
       </div>
