@@ -18,7 +18,7 @@ export function UserProfile({
 }: UserProfileProps) {
   return (
     <div>
-      <h1>User Profile {discordTag}</h1>
+      <h1>{discordTag}</h1>
     </div>
   );
 }
