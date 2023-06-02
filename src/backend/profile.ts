@@ -1,6 +1,7 @@
 import { Session } from "@supabase/supabase-js";
 import { databaseClient } from "./client";
 import axios from "axios";
+import { useEffect, useState } from "react";
 
 export interface Profile {
   id: string;
@@ -76,23 +77,43 @@ export async function updateDiscordUserData(
   return Promise.resolve();
 }
 
-export async function getCurrentUserProfile(
+// gets the currnt user's profile
+export function useCurrentProfile(
   session: Session | null
-): Promise<Profile | string> {
-  if (session === null) return Promise.reject("Session is null");
+): [Profile | null, boolean] {
+  const getProfile = async () => {
+    if (session === null) return Promise.reject("Session is null");
 
-  const { data, error } = await databaseClient
-    .from("profiles")
-    .select("*")
-    .eq("id", session.user.id)
-    .single();
+    const { data, error } = await databaseClient
+      .from("profiles")
+      .select("*")
+      .eq("id", session.user.id)
+      .single();
 
-  if (error) {
-    return Promise.reject(`Error fetching profile: ${error.message}`);
-  }
+    if (error) {
+      return Promise.reject(`Error fetching profile: ${error.message}`);
+    }
 
-  if (data as Profile) {
-    return Promise.resolve(data as Profile);
-  }
-  return Promise.reject(`${data} could not be casted to Profile`);
+    if (data as Profile) {
+      return Promise.resolve(data as Profile);
+    }
+    return Promise.reject(`${data} could not be casted to Profile`);
+  };
+
+  const [profile, setProfile] = useState<Profile | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    getProfile()
+      .then((res) => {
+        setProfile(res);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setLoading(false);
+      });
+  });
+
+  return [profile, loading];
 }
