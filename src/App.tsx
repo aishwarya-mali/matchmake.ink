@@ -1,4 +1,3 @@
-import "./App.css";
 import "./index.css";
 import { useSession } from "./backend/session";
 import Login from "./pages/Login";
