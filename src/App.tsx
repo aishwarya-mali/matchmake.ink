@@ -1,13 +1,10 @@
 import "./index.css";
-import { useSession } from "./backend/session";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 
 export default function App() {
-  const session = useSession();
-
   return (
     <>
       <BrowserRouter>
