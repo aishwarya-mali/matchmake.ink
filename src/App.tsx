@@ -5,10 +5,13 @@ import { useSession } from "./backend/session";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 
+import { Header } from "./components/header/Header";
+
 export default function App() {
   const session = useSession();
   return (
     <>
+      <Header />
       {session ? (
         <BrowserRouter>
           <Routes>
