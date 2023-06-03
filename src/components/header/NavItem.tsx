@@ -5,8 +5,8 @@ export interface NavItemProps {
 
 export function NavItem({ icon, link }: NavItemProps) {
   return (
-    <div>
-      <a href={link}>{icon}</a>
-    </div>
+    <a href={link} className="nav-link">
+      {icon}
+    </a>
   );
 }
