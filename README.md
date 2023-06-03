@@ -12,6 +12,7 @@ matchmake.ink is a website built to provide the best competitive experience for 
 - [ ] Team ratings
 	- [ ] Teams are given a rating using a system such as elo-mmr or glicko (not sure yet)
 	- [ ] TO's can submit matches from their own tournaments
+	- [ ] Teams can submit matches they scheduled on their own
 ## v2.0.0 - December 20 2023
 - [ ] League system?
   - [ ] Similar to LUTI, but automated
