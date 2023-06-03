@@ -7,7 +7,7 @@ export default function Home() {
   const [profile] = useCurrentProfile(session);
 
   return (
-    <main className="bg-slate-800 text-white p-4">
+    <main className="page">
       <UserProfile
         discordTag={profile?.discord_tag || ""}
         profilePictureUrl={profile?.avatar_url || ""}
