@@ -8,5 +8,9 @@
 }
 
 .page {
-  @apply bg-slate-800 text-white p-4 h-screen
+  @apply bg-slate-800 text-white p-4
+}
+
+body {
+  @apply bg-slate-800
 }

@@ -25,13 +25,13 @@ export function TeamInvite({
       <p className="inline-block m-2 my-auto text-md underline">{teamName}</p>
       <span className="flex-grow"></span>
       <button
-        className="bg-green-500 p-2 m-2 rounded-lg hover:bg-green-400 w-20"
+        className="bg-green-500 p-2 m-2 rounded-lg hover:bg-green-400 w-20 transition-all"
         onClick={joinCallback}
       >
         Join
       </button>
       <button
-        className="bg-red-500 p-2 m-2 rounded-lg hover:bg-red-400 w-20"
+        className="bg-red-500 p-2 m-2 rounded-lg hover:bg-red-400 w-20 transition-all"
         onClick={declineCallback}
       >
         Decline
