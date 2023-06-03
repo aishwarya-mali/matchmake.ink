@@ -13,7 +13,12 @@ export function Header() {
       <nav
         role="navigation"
         className="flex items-center justify-between flex-1"
-      ></nav>
+      >
+        <NavItem link="/" icon={<FaHome />} />
+        <NavItem link="/team" icon={<MdGroups />} />
+        <NavItem link="/profile" icon={<FaUser />} />
+        <NavItem link="/settings" icon={<BsGearFill />} />
+      </nav>
       <button className="">{session ? "Sign In" : "Sign Out"}</button>
     </header>
   );
