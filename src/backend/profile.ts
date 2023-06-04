@@ -81,29 +81,29 @@ export async function updateDiscordUserData(
 export function useCurrentProfile(
   session: Session | null
 ): [Profile | null, boolean] {
-  const getProfile = async () => {
-    if (session === null) return Promise.reject("Session is null");
-
-    const { data, error } = await databaseClient
-      .from("profiles")
-      .select("*")
-      .eq("id", session.user.id)
-      .single();
-
-    if (error) {
-      return Promise.reject(`Error fetching profile: ${error.message}`);
-    }
-
-    if (data as Profile) {
-      return Promise.resolve(data as Profile);
-    }
-    return Promise.reject(`${data} could not be casted to Profile`);
-  };
-
   const [profile, setProfile] = useState<Profile | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
+    const getProfile = async () => {
+      if (session === null) return Promise.reject("Session is null");
+
+      const { data, error } = await databaseClient
+        .from("profiles")
+        .select("*")
+        .eq("id", session.user.id)
+        .single();
+
+      if (error) {
+        return Promise.reject(`Error fetching profile: ${error.message}`);
+      }
+
+      if (data as Profile) {
+        return Promise.resolve(data as Profile);
+      }
+      return Promise.reject(`${data} could not be casted to Profile`);
+    };
+
     getProfile()
       .then((res) => {
         setProfile(res);
@@ -113,7 +113,7 @@ export function useCurrentProfile(
         console.error(err);
         setLoading(false);
       });
-  });
+  }, [session]);
 
   return [profile, loading];
 }
