@@ -4,7 +4,7 @@ export interface UserProfileProps {
   discordTag: string;
   profilePictureUrl: string;
   friendCode?: string;
-  team?: string;
+  team: string;
   twitterHandle?: string;
   sendouPage?: string;
   // note - the sendouLink variable only refers to the last
