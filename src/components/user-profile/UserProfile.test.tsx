@@ -1,9 +1,6 @@
-import { describe, it, expect } from "vitest";
-import matchers from "@testing-library/jest-dom/matchers";
 import { UserProfile, UserProfileProps } from "./UserProfile";
 import { render, screen } from "@testing-library/react";
 
-expect.extend(matchers);
 const dummyUser: UserProfileProps = {
   discordTag: "AwesomeUser#1234",
   profilePictureUrl:
