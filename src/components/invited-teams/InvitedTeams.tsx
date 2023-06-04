@@ -9,7 +9,7 @@ export function InvitedTeams({ profile }: InvitedTeamsProps) {
   // this component is intentionally left dumb. It is waiting on the team system to be implemented
   console.log(profile);
   return (
-    <div className="bg-background-light flex flex-col w-full border-slate-100 rounded-lg border p-2">
+    <div className="bg-background-light flex flex-col w-fit border-slate-100 rounded-lg border p-2 m-auto">
       <h2 className="text-xl text-center m-2">Join Team</h2>
       <div>
         <TeamInvite

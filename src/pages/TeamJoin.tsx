@@ -2,7 +2,7 @@ import { InvitedTeams } from "../components/invited-teams/InvitedTeams";
 import { useSession } from "../backend/session";
 import { useCurrentProfile } from "../backend/profile";
 
-export default function Team() {
+export default function TeamJoin() {
   const session = useSession();
   const [profile] = useCurrentProfile(session);
 
@@ -16,23 +16,15 @@ export default function Team() {
     );
   }
 
-  const noTeamScreen = (
-    <div className="page flex-col flex justify-around align-center">
+  // note - team logo is a placeholder for now because it hasn't been implemented
+  return (
+    <div className="page flex-col flex justify-center align-center">
       <div className="m-2 flex flex-col justify-center align-middle">
         <button className="bg-blue-500 p-4 rounded-lg m-4 w-48 h-24 text-xl mx-auto text-center align-middle hover:bg-blue-400 transition-all">
           Create Team
         </button>
       </div>
       <InvitedTeams profile={profile} />
-    </div>
-  );
-
-  const hasTeamScreen = <h1>I have a team!</h1>;
-
-  // note - team logo is a placeholder for now because it hasn't been implemented
-  return (
-    <div className="page flex-row flex justify-around">
-      {profile.team ? hasTeamScreen : noTeamScreen}
     </div>
   );
 }
