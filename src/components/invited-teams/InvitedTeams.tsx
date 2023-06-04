@@ -7,6 +7,7 @@ export interface InvitedTeamsProps {
 
 export function InvitedTeams({ profile }: InvitedTeamsProps) {
   // this component is intentionally left dumb. It is waiting on the team system to be implemented
+  console.log(profile);
   return (
     <div className="bg-slate-700 flex flex-col w-full border-slate-100 rounded-lg border p-2">
       <h2 className="text-xl text-center m-2">Join Team</h2>
