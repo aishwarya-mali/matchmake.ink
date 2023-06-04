@@ -47,7 +47,7 @@ export function CreateTeam({ userId }: CreateTeamProps) {
                 members: [userId],
               },
             ])
-            .then(({ error, data }) => {
+            .then(({ error }) => {
               if (error) {
                 setStatus(
                   "Failed to create team. Does another team with the same tag already exist? Check the console for a full error message."
