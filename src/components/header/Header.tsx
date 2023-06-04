@@ -8,8 +8,10 @@ export function Header() {
   const session = useSession();
 
   return (
-    <header className="flex items-center justify-between px-4 py-2 bg-gray-900">
-      <h1 className="text-bold text-2xl m-2 text-white">matchmake.ink</h1>
+    <header className="flex items-center justify-between px-4 py-2 bg-background-dark border-white border-b">
+      <h1 className="text-bold text-2xl m-2 text-blue-400 font-splatoon">
+        matchmake.ink
+      </h1>
       <nav
         role="navigation"
         className="flex items-center justify-between flex-1"

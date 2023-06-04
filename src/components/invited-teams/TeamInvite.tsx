@@ -16,7 +16,7 @@ export function TeamInvite({
   }
 
   return (
-    <div className="bg-slate-800 flex flex-row max-w-lg border-slate-100 rounded-lg border m-2 p-2">
+    <div className="bg-blue-500 flex flex-row max-w-lg border-slate-100 rounded-lg border m-2 p-2">
       <img
         src={teamLogoUrl}
         alt="Team Logo"
@@ -25,7 +25,7 @@ export function TeamInvite({
       <p className="inline-block m-2 my-auto text-md underline">{teamName}</p>
       <span className="flex-grow"></span>
       <button
-        className="bg-green-500 p-2 m-2 rounded-lg hover:bg-green-400 w-20 transition-all"
+        className="bg-turquois-500 p-2 m-2 rounded-lg hover:bg-turquois-400 w-20 transition-all"
         onClick={joinCallback}
       >
         Join
