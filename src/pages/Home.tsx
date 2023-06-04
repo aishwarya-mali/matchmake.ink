@@ -6,15 +6,25 @@ export default function Home() {
   const session = useSession();
   const [profile] = useCurrentProfile(session);
 
+  if (profile === null || session === null) {
+    return (
+      <div className="page">
+        <p>
+          Wait... You shouldn't be here! Please <a href="/login">log in</a>.
+        </p>
+      </div>
+    );
+  }
+
   return (
-    <main className="bg-slate-800 text-white p-4">
+    <main className="page">
       <UserProfile
-        discordTag={profile?.discord_tag || ""}
-        profilePictureUrl={profile?.avatar_url || ""}
-        friendCode={profile?.friend_code || ""}
-        team={profile?.team || ""}
-        twitterHandle={profile?.twitter_handle || ""}
-        sendouPage={profile?.sendou_page || ""}
+        discordTag={profile.discord_tag || ""}
+        profilePictureUrl={profile.avatar_url || ""}
+        friendCode={profile.friend_code || ""}
+        team={profile.team || ""}
+        twitterHandle={profile.twitter_handle || ""}
+        sendouPage={profile.sendou_page || ""}
       />
     </main>
   );
