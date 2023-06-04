@@ -25,4 +25,4 @@ dist-ssr
 
 
 # environment files
-env.json
+.env

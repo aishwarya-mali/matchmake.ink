@@ -45,6 +45,10 @@ Once you've made an accepted PR, feel free to DM me on discord (FireSquid#8882)
 1. Clone the repo with whatever you want
 2. Open the project in your editor of choice
 3. Run `npm install`
-4. Create your env.json file. See `src/backend/client.ts` for info on what this should contain
+4. Create your .env file:
+	- As of 6-3-2023, your .env file should look like:
+	- ```VITE_SUPABASE_URL="https://zdxeeicdysjerhtalkbi.supabase.co"
+		VITE_SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpkeGVlaWNkeXNqZXJodGFsa2JpIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODUzOTU2NDQsImV4cCI6MjAwMDk3MTY0NH0.GYlVhTcsm9Kr-tqASRGwZUinEo_7np_bTbgh3-GAF0I"
+		```
 5. Run `npm run dev`
 6. Choose an issue to start working on. If you're new, look for stuff marked with `good-first-issue`
