@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { databaseClient } from "../../backend/client";
+export interface CreateTeamProps {
+  userId: string;
+}
 
-export function CreateTeam() {
+export function CreateTeam({ userId }: CreateTeamProps) {
   const [teamTag, setTeamTag] = useState("");
   const [discordServerId, setDiscordServerId] = useState("");
   const [discordServerInvite, setDiscordServerInvite] = useState("");
@@ -34,9 +37,10 @@ export function CreateTeam() {
             .from("teams")
             .insert([
               {
-                team_tag: teamTag,
+                tag: teamTag,
                 discord_server_id: discordServerId,
                 discord_server_invite: discordServerInvite,
+                members: [userId],
               },
             ])
             .then(
