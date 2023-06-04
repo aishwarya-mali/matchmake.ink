@@ -19,7 +19,7 @@ export default function Team() {
   const noTeamScreen = (
     <div className="page flex-col flex justify-around align-center">
       <div className="m-2 flex flex-col justify-center align-middle">
-        <button className="bg-green-500 p-4 rounded-lg m-4 w-48 h-24 text-xl mx-auto text-center align-middle hover:bg-green-400 transition-all">
+        <button className="bg-blue-500 p-4 rounded-lg m-4 w-48 h-24 text-xl mx-auto text-center align-middle hover:bg-blue-400 transition-all">
           Create Team
         </button>
       </div>
