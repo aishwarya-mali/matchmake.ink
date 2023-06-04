@@ -46,9 +46,8 @@ Once you've made an accepted PR, feel free to DM me on discord (FireSquid#8882)
 2. Open the project in your editor of choice
 3. Run `npm install`
 4. Create your .env file:
-	- As of 6-3-2023, your .env file should look like:
-	- ```VITE_SUPABASE_URL="https://zdxeeicdysjerhtalkbi.supabase.co"
-		VITE_SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpkeGVlaWNkeXNqZXJodGFsa2JpIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODUzOTU2NDQsImV4cCI6MjAwMDk3MTY0NH0.GYlVhTcsm9Kr-tqASRGwZUinEo_7np_bTbgh3-GAF0I"
-		```
+	- As of 6-3-2023, your .env file needs two variables
+	- `VITE_SUPABASE_URL`, which should be `"https://zdxeeicdysjerhtalkbi.supabase.co"`
+	- `VITE_SUPABASE_ANON_KEY`, which I can't give out randomly. Contact FireSquid#8882 if you'd like to start developing and want this.
 5. Run `npm run dev`
 6. Choose an issue to start working on. If you're new, look for stuff marked with `good-first-issue`
