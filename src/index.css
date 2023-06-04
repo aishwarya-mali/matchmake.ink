@@ -17,5 +17,5 @@
 }
 
 body {
-  @apply bg-background-normal font-body
+  @apply bg-background-normal font-body outline-none
 }
