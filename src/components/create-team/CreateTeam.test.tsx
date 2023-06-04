@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import { CreateTeam } from "./CreateTeam";
 
 describe("CreateTeam page", () => {
@@ -8,9 +8,16 @@ describe("CreateTeam page", () => {
     expect(screen.getByLabelText(/Discord Server ID/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/Discord Server Invite/i)).toBeInTheDocument();
   });
-
   it("renders a submit button", () => {
     render(<CreateTeam />);
     expect(screen.getByRole("button", { name: /Submit/i })).toBeInTheDocument();
+  });
+  it("submits the form to the backend", () => {
+    render(<CreateTeam />);
+    const input = screen.getByLabelText(/Team Tag/i);
+    const submitButton = screen.getByRole("button", { name: /Submit/i });
+
+    fireEvent.change(input, { target: { value: "super-awesome-team" } });
+    fireEvent.click(submitButton);
   });
 });
