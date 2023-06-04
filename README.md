@@ -5,10 +5,9 @@ matchmake.ink is a website built to provide the best competitive experience for 
 ## v1.0.0 - September 30 2023
 - [x] User account creation and login  
 	- [x] Linking discord account  
-- [ ] Team account creation
-	- [ ] One user designated team captain with admin perms
-	- [ ] Other users can be designated team moderators
-	- [ ] Users can be in multiple teams
+- [x] Team account creation
+	- [x] Users can create teams
+	- [ ] Users can join teams created by other users
 - [ ] Team ratings
 	- [ ] Teams are given a rating using a system such as elo-mmr or glicko (not sure yet)
 	- [ ] TO's can submit matches from their own tournaments
