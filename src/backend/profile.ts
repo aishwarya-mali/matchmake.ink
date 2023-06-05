@@ -44,7 +44,7 @@ export async function updateProfile(
 
 export async function updateDiscordUserData(
   session: Session,
-  providerToken: string
+  providerToken: string | null
 ): Promise<string | void> {
   // ensure arguments
   if (session === null) return Promise.reject("Session is null");

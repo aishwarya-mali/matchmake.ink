@@ -3,6 +3,7 @@ import { BsGearFill } from "react-icons/bs";
 import { MdGroups } from "react-icons/md";
 import { useSession } from "../../backend/session";
 import { NavItem } from "./NavItem";
+import { databaseClient } from "../../backend/client";
 
 export function Header() {
   const session = useSession();
@@ -22,7 +23,16 @@ export function Header() {
         <NavItem link="/settings" icon={<BsGearFill />} />
       </nav>
       <span className="w-full"></span>
-      <button className="nav-link">
+      <button
+        onClick={() => {
+          if (session) {
+            databaseClient.auth.signOut();
+          } else {
+            console.log("sign in!");
+          }
+        }}
+        className="nav-link"
+      >
         {session ? <FaSignOutAlt /> : <FaSignInAlt />}
       </button>
     </header>
