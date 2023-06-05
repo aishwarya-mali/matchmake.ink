@@ -14,12 +14,12 @@ describe("CreateTeam page", () => {
   });
   it("renders a submit button", () => {
     render(<CreateTeam {...props} />);
-    expect(screen.getByRole("button", { name: /Submit/i })).toBeInTheDocument();
+    expect(screen.getByRole("submit")).toBeInTheDocument();
   });
   it("submits the form to the backend", () => {
     render(<CreateTeam {...props} />);
     const input = screen.getByLabelText(/Team Tag/i);
-    const submitButton = screen.getByRole("button", { name: /Submit/i });
+    const submitButton = screen.getByRole("submit");
 
     fireEvent.change(input, { target: { value: "super-awesome-team" } });
     fireEvent.click(submitButton);
