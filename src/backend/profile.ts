@@ -9,11 +9,11 @@ export interface Profile {
   discord_tag: string | null;
   avatar_url: string | null;
   email: string | null;
-  friend_code: string | null;
-  twitter_handle: string | null;
-  sendou_page: string | null;
+  friend_code: string;
+  twitter_handle: string;
+  sendou_page: string;
   invited_teams: string[] | null;
-  team: string | null;
+  team: string;
 }
 
 export interface ProfileUpdate {
@@ -66,7 +66,12 @@ export async function updateDiscordUserData(
         email: res.data.email,
       };
 
-      databaseClient.from("profiles").upsert(updates); // do we need error handling here?
+      databaseClient
+        .from("profiles")
+        .upsert(updates)
+        .then((response) => {
+          console.log(response);
+        }); // do we need error handling here?
       return Promise.resolve();
     })
     .catch((err) => {
