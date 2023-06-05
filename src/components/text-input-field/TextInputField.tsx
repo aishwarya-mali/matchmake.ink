@@ -18,7 +18,7 @@ export function TextInputField({
       <label htmlFor={id}>
         {label}
         {infoUrl ? (
-          <a href={infoUrl} target="_blank" rel="noreferrer">
+          <a href={infoUrl} role="link" target="_blank" rel="noreferrer">
             <AiFillInfoCircle className="inline-block ml-2 text-white hover:text-red-500 transition-all" />
           </a>
         ) : null}
@@ -28,6 +28,7 @@ export function TextInputField({
         onChange={(e) => onChange(e.target.value)}
         id={id}
         type="text"
+        role="text-input"
       />
     </div>
   );
