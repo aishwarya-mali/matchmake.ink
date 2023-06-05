@@ -3,7 +3,7 @@ import { databaseClient } from "../../backend/client";
 import { TextInputField } from "../text-input-field/TextInputField";
 
 export interface CreateTeamProps {
-  userId: string;
+  userId: string | null;
 }
 
 export function CreateTeam({ userId }: CreateTeamProps) {
@@ -34,7 +34,8 @@ export function CreateTeam({ userId }: CreateTeamProps) {
       />
       <button
         type="submit"
-        className="bg-turquois-500 hover:bg-turquois-400 text-white p-2 m-2 rounded-lg"
+        disabled={teamTag === "" || discordServerId === "" || userId === null}
+        className="bg-turquois-500 hover:bg-turquois-400 text-white p-2 m-2 rounded-lg disabled:bg-turquois-600"
         onClick={(e) => {
           e.preventDefault();
           databaseClient
@@ -61,7 +62,7 @@ export function CreateTeam({ userId }: CreateTeamProps) {
             });
         }}
       >
-        Submit
+        {userId === null ? "Loading..." : "Create Team"}
       </button>
       {status ? (
         <p className={`${statusColor} text-center w-96`}>{status}</p>

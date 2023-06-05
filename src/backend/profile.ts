@@ -2,6 +2,7 @@ import { Session } from "@supabase/supabase-js";
 import { databaseClient } from "./client";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { SessionSingleton } from "./session";
 
 export interface Profile {
   id: string;
@@ -83,15 +84,34 @@ export async function updateDiscordUserData(
 }
 
 // gets the currnt user's profile
-export function useCurrentProfile(
-  session: Session | null
-): [Profile | null, boolean] {
+export function useCurrentProfile(): [Profile | null, boolean] {
+  const instance = SessionSingleton.getInstance();
+  const session = instance.getSession();
+  const sessionFound = instance.isSessionFound();
+
   const [profile, setProfile] = useState<Profile | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const getProfile = async () => {
-      if (session === null) return Promise.reject("Session is null");
+      // if the session hasn't been found yet, we should just return an empty profile to display while we wait.
+      if (!sessionFound)
+        return Promise.resolve({
+          id: "",
+          discord_id: "",
+          discord_tag: "",
+          avatar_url: "",
+          email: "",
+          friend_code: "",
+          twitter_handle: "",
+          sendou_page: "",
+          invited_teams: [],
+          team: "",
+        });
+
+      // if the session is null, then the user isn't logged in and we have an issue
+      if (session === null)
+        return Promise.reject("Session is null. Are you logged in?");
 
       const { data, error } = await databaseClient
         .from("profiles")
@@ -118,7 +138,7 @@ export function useCurrentProfile(
         console.error(err);
         setLoading(false);
       });
-  }, [session]);
+  }, [session, sessionFound]);
 
   return [profile, loading];
 }
