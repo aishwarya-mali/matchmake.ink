@@ -34,6 +34,7 @@ export function CreateTeam({ userId }: CreateTeamProps) {
       />
       <button
         type="submit"
+        role="submit"
         disabled={teamTag === "" || discordServerId === "" || userId === null}
         className="bg-turquois-500 hover:bg-turquois-400 text-white p-2 m-2 rounded-lg disabled:bg-turquois-600"
         onClick={(e) => {
