@@ -5,8 +5,8 @@ export interface InvitedTeamsProps {
   profile: Profile | null;
 }
 
+// primarily a placeholder component for now. Will be implemented properly and tested when team invites are implemented
 export function InvitedTeams({ profile }: InvitedTeamsProps) {
-  // this component is intentionally left dumb. It is waiting on the team system to be implemented
   console.log(profile);
   return (
     <div className="bg-background-light flex flex-col w-fit border-red-100 rounded-lg border p-2 m-auto">

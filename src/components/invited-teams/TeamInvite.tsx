@@ -5,6 +5,7 @@ export interface TeamInviteProps {
   declineCallback: () => void;
 }
 
+// See InvitedTeams.tsx. This component is a placeholder until team invites are implemented properly
 export function TeamInvite({
   teamName,
   teamLogoUrl,
