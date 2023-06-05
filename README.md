@@ -34,7 +34,10 @@ We're using Vite, React, and Typescript deployed to netlify on the frontend, and
 3. If it's important enough to be global, it should be wrapped in its own module
 4. Keep each issue to its own branch and make PR's to main
 5. Fetch from main often to avoid conflicts
-6. Read [The Pragmatic Programmer](https://pragprog.com/titles/tpp20/the-pragmatic-programmer-20th-anniversary-edition/)
+6. Practice TDD (Test Driven Development) as much as you can
+7. Only have one component per file
+	- Additionally, name unit tests `[test-file].test.ts[x]`. So `Profile.tsx`'s unit tests would be named `Pofile.test.tsx`
+8. Read [The Pragmatic Programmer](https://pragprog.com/titles/tpp20/the-pragmatic-programmer-20th-anniversary-edition/)
 
 The main branch is our primary development branch, with PR's made to production being deployed to the website.
 
