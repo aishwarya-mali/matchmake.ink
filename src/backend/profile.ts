@@ -66,7 +66,12 @@ export async function updateDiscordUserData(
         email: res.data.email,
       };
 
-      databaseClient.from("profiles").upsert(updates); // do we need error handling here?
+      databaseClient
+        .from("profiles")
+        .upsert(updates)
+        .then((response) => {
+          console.log(response);
+        }); // do we need error handling here?
       return Promise.resolve();
     })
     .catch((err) => {
