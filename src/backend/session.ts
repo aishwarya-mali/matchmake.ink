@@ -5,7 +5,6 @@ import { databaseClient } from "./client";
 export function useSession(): Session | null {
   const [session, setSession] = useState<Session | null>(null);
   const sessionSingleton = SessionSingleton.getInstance();
-  // maybe later think of a way for session to be null safe? I'm don't know how to do that. If you do, please fix it.
 
   useEffect(() => {
     setSession(sessionSingleton.getSession());
